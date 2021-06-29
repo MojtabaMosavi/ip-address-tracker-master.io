@@ -1,0 +1,22 @@
+@use "../abstracts" as abs;
+
+/*----------------------*\
+    #Helper classes
+\*----------------------*/
+
+/*|| container to align the content*/
+
+.container {
+  padding: 0 1.5rem;
+}
+
+/*|| displays the content for screen readers */
+
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  height: auto;
+  width: 1px;
+  height: 1px;
+  overflow-x: hidden;
+}

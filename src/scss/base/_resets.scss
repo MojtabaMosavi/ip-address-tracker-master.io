@@ -1,0 +1,82 @@
+@use "../abstracts" as abs;
+
+/*-------------------*\
+    #Resets
+\*-------------------*/
+
+/*||  general resets */
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: abs.$font-primary;
+}
+
+/*|| making the images and picture sizes limited to the containing element*/
+image,
+picture {
+  max-width: 100%;
+}
+
+/*|| remove all the default styles from list */
+ul,
+ol {
+  list-style: none;
+}
+
+/*|| remove default style from links*/
+a,
+a:visited {
+  text-decoration: none;
+}
+
+/*|| remove default style from buttons*/
+button {
+  border: none;
+}
+
+/*|| remove default style from links and buttons 
+      upon hovering but not when they are tabed*/
+
+button,
+a {
+  cursor: pointer;
+  &:focus {
+    outline: max(1, 0.1em) dashed #000;
+    outline-offset: -0.25em;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: max(1, 0.1em) dashed #000;
+    outline-offset: -0.25em;
+  }
+}
+
+/*|| Remove all animations and transitions
+for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
