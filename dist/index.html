@@ -4,21 +4,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.a89af6ed.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.7d369b0f.png">
   <link rel="stylesheet" href="/main.77bb5cfd.css">
   <script src="/app.c3f9f951.js" defer=""></script>
   <title>Frontend Mentor | IP Address Tracker</title>
 <script src="/main.77bb5cfd.js"></script></head>
 <body>
+  <main class="main">
+    <div class="main__content-wrapper">
+      
+      <div class="ip-tracker">
+        <header class="ip-tracker__header">
+          <h1 class="ip-tracker__heading">  IP Address Tracker</h1>
+  
+          <form action="#" class="ip-tracker__form">
+            <input type="text" class="ip-tracker__input" placeholder="  Search for any IP address or domain">
+          </form>
+  
+          <ul class="ip-tracker__info">
+
+            <li class="ip-tracker__item">
+              <h4 class="ip-tracker__item-heading">  IP Address</h4>
+              <span class="ip-tracker__item-info"></span>
+            </li>
+
+            <li class="ip-tracker__item">
+              <h4 class="ip-tracker__item-heading">Location</h4>
+              <span class="ip-tracker__item-info"></span>
+            </li>
+
+            <li class="ip-tracker__item">
+              <h4 class="ip-tracker__item-heading">  Timezone</h4>
+              <span class="ip-tracker__item-info"></span>
+            </li>
+
+            <li class="ip-tracker__item">
+              <h4 class="ip-tracker__item-heading"> UTC </h4>
+              <span class="ip-tracker__item-info"></span>
+            </li>
+  
+          </ul>
+        </header><!-- End of ip-teackre__header-->
+  
+        <div class="ip-tracker__map"></div><!-- End of ip-tracker__map-->
+  
+      </div>
+
+    </div>
+
+  </main>
   <!-- 
-  IP Address Tracker
 
-  Search for any IP address or domain
 
-  IP Address
-  Location
-  Timezone
-    UTC <!-- add offset value dynamically using the API -->
+  
+   <!-- add offset value dynamically using the API -->
 
     <!-- 
   ISP
