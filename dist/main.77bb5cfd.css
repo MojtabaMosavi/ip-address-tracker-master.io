@@ -6,6 +6,8 @@
 :root {
   --Very-Dark-Gray: hsl(0, 0%, 17%);
   --Dark-Gray: hsl(0, 0%, 59%);
+  --headings: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 0%);
 }
 
 /*|| typography */
@@ -20,7 +22,7 @@
 \*----------------------*/
 /*|| container to align the content*/
 .container {
-  padding: 0 1.5rem;
+  padding: 0 1.4rem;
 }
 
 /*|| displays the content for screen readers */
@@ -122,6 +124,47 @@ for people that prefer not to see them */
 /*--------------------*\
   #ip-tracker
 \*--------------------*/
+.ip-tracker__header {
+  background: url("/pattern-bg.b79e96d3.png") no-repeat center center/cover;
+  text-align: center;
+}
+.ip-tracker-wrapper {
+  padding-top: 1.7rem;
+  margin-bottom: 2rem;
+}
+.ip-tracker__heading {
+  font-size: 1.5rem;
+  margin-bottom: 1.85rem;
+  color: var(--headings);
+}
+.ip-tracker__form {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+.ip-tracker__form::after {
+  content: "";
+  background: url(/icon-arrow.8bc9b196.svg) no-repeat center, var(--black);
+  position: absolute;
+  width: 3.7rem;
+  right: 0;
+  top: 0;
+  height: 100%;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+.ip-tracker__input {
+  text-align: left;
+  padding: 1.2rem 1.5rem;
+  width: 100%;
+  font-size: 1.1rem;
+  border-radius: 1rem;
+  border: none;
+}
+.ip-tracker__info {
+  display: none;
+}
+
 /*-------------------------------*\
   #Main stylesheet
 \*-------------------------------*/

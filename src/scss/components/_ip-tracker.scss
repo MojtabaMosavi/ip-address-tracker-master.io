@@ -5,9 +5,52 @@
 \*--------------------*/
 
 .ip-tracker {
+  &__header {
+    background: url("../assets/images/pattern-bg.png") no-repeat center center/
+      cover;
+    text-align: center;
+  }
+
+  &-wrapper {
+    padding-top: 1.7rem;
+    margin-bottom: 2rem;
+  }
+
   &__heading {
+    font-size: 1.5rem;
+    margin-bottom: 1.85rem;
+    color: var(--headings);
+  }
+
+  &__form {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+
+    &::after {
+      content: "";
+      background: url(../assets/images/icon-arrow.svg) no-repeat center,
+        var(--black);
+      position: absolute;
+      width: 3.7rem;
+      right: 0;
+      top: 0;
+      height: 100%;
+      border-top-right-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+    }
   }
 
   &__input {
+    text-align: left;
+    padding: 1.2rem 1.5rem;
+    width: 100%;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+    border: none;
+  }
+
+  &__info {
+    display: none;
   }
 }
