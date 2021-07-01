@@ -6,7 +6,9 @@
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="scss/main.scss">
-  <script src="js/app.js" defer></script>
+  <script src="js/search-bar.js" defer></script>
+  <script src="https://kit.fontawesome.com/e8685ceadd.js" crossorigin="anonymous"></script>
+
   <title>Frontend Mentor | IP Address Tracker</title>
 </head>
 <body>
@@ -18,35 +20,50 @@
             <div class="ip-tracker-wrapper container">
 
               <h1 class="ip-tracker__heading">  IP Address Tracker</h1>
-      
+
+
+
               <form action="#" class="form ip-tracker__form">
-                <label for="ipInput" class="sr-only"></label>
+
+                <label for="ip-search" class="sr-only"></label>
                 <input type="search" 
                         class="ip-tracker__input"
                         placeholder=" 234567876543"
-                        id="ipInput">
+                        id="ip-search" 
+                        aria-label="search bar"
+                        />
+
+                <button class="ip-tracker__search" 
+                        aria-label="serach" 
+                        aria-controls="search"
+                        type="button">
+                  <i class="fas fa-search ip-trakcer__search-icon" 
+                      aria-hidden="true" 
+                      title="search for an ip address" 
+                      id="search"></i>
+                </button>
               </form>
       
               <ul class="ip-tracker__info">
     
                 <li class="ip-tracker__item">
                   <h4 class="ip-tracker__item-heading">  IP Address</h4>
-                  <span class="ip-tracker__item-info">23423315</span>
+                  <span class="ip-tracker__item-info">192.212.174.101</span>
                 </li>
     
                 <li class="ip-tracker__item">
                   <h4 class="ip-tracker__item-heading">Location</h4>
-                  <span class="ip-tracker__item-info">324</span>
+                  <span class="ip-tracker__item-info">Brooklyn,NY 10001</span>
                 </li>
     
                 <li class="ip-tracker__item">
                   <h4 class="ip-tracker__item-heading">  Timezone</h4>
-                  <span class="ip-tracker__item-info">2222222324</span>
+                  <span class="ip-tracker__item-info">UTC-05:50</span>
                 </li>
     
                 <li class="ip-tracker__item">
-                  <h4 class="ip-tracker__item-heading"> UTC </h4>
-                  <span class="ip-tracker__item-info">32532</span>
+                  <h4 class="ip-tracker__item-heading"> ISP </h4>
+                  <span class="ip-tracker__item-info">SpaceX Starlink</span>
                 </li>
       
               </ul>

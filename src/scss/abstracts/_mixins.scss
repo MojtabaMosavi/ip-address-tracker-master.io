@@ -12,11 +12,7 @@
 }
 
 /*|| to make a flex container */
-@mixin flex-container(
-  $al-con: "center",
-  $js-con: "space-between",
-  $flex-d: "row"
-) {
+@mixin flex-container($al-con: center, $js-con: space-between, $flex-d: row) {
   display: flex;
   align-items: $al-con;
   justify-content: $js-con;

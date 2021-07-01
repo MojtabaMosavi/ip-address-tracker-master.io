@@ -7,7 +7,13 @@
 /*|| container to align the content*/
 
 .container {
-  padding: 0 1.4rem;
+  max-width: 20.5rem;
+  margin: 0 auto;
+
+  /*|| tablet view*/
+  @include abs.respond-to("tablet") {
+    max-width: 35rem;
+  }
 }
 
 /*|| displays the content for screen readers */

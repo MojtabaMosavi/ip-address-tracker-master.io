@@ -14,30 +14,64 @@
   &-wrapper {
     padding-top: 1.7rem;
     margin-bottom: 2rem;
+    position: relative;
+    transition: abs.$search-bar-transition;
   }
 
   &__heading {
     font-size: 1.5rem;
     margin-bottom: 1.85rem;
-    color: var(--headings);
+    color: var(--white);
   }
 
   &__form {
     display: inline-block;
     width: 100%;
     position: relative;
+    margin-bottom: 9.6rem;
+    transform-origin: left;
+    transition: abs.$search-bar-transition;
 
     &::after {
-      content: "";
-      background: url(../assets/images/icon-arrow.svg) no-repeat center,
-        var(--black);
-      position: absolute;
-      width: 3.7rem;
-      right: 0;
+    }
+    &--active {
+      @extend .ip-tracker__form;
+    }
+  }
+
+  &__search {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: inherit;
+    font-size: 3rem;
+    transition: abs.$search-bar-transition;
+    overflow: hidden;
+
+    &:hover {
+      transform: translate(-50%, -50%) rotate(130deg);
+    }
+
+    &--active {
+      transition: abs.$search-bar-transition;
+      left: 100%;
       top: 0;
+      background: url(../assets/images/icon-arrow.svg) no-repeat center, black;
+      transform: translateX(-100%);
+      width: 3.7rem;
       height: 100%;
       border-top-right-radius: 1rem;
       border-bottom-right-radius: 1rem;
+
+      &:hover {
+        transform-origin: center;
+        transform: translateX(-100%) rotate(180deg);
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+      }
     }
   }
 
@@ -48,9 +82,45 @@
     font-size: 1.1rem;
     border-radius: 1rem;
     border: none;
+    visibility: hidden;
+    transform: scale(0);
+    transform-origin: center;
+    transition: abs.$search-bar-transition;
+
+    &--active {
+      transform: scale(1);
+      visibility: visible;
+    }
   }
 
   &__info {
-    display: none;
+    background-color: var(--white);
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -45%);
+    width: 100%;
+    min-height: 18.3rem;
+    border-radius: 1rem;
+    @include abs.flex-container($js-con: space-evenly, $flex-d: column);
+  }
+
+  &__item {
+    &-heading {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    &-info {
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+  }
+
+  /*||----------------talbet view-------------------------*/
+  @include abs.respond-to("tablet") {
+    &__heading {
+      font-size: 1.8rem;
+    }
   }
 }
