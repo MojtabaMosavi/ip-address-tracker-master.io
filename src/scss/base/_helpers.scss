@@ -1,8 +1,8 @@
 @use "../abstracts" as abs;
 
-/*----------------------*\
-    #Helper classes
-\*----------------------*/
+/*----------------------------------------*\
+  #Helper class
+\*----------------------------------------*/
 
 /*|| container to align the content*/
 
@@ -10,9 +10,25 @@
   max-width: 20.5rem;
   margin: 0 auto;
 
-  /*|| tablet view*/
+  /*----------------------------------------*\
+    #tablet view
+  \*----------------------------------------*/
   @include abs.respond-to("tablet") {
     max-width: 35rem;
+  }
+
+  /*----------------------------------------*\
+    #laptop view
+  \*----------------------------------------*/
+  @include abs.respond-to("laptop") {
+    max-width: 60rem;
+  }
+
+  /*----------------------------------------*\
+    #dektop view
+  \*----------------------------------------*/
+  @include abs.respond-to("desktop") {
+    max-width: 69.5rem;
   }
 }
 
