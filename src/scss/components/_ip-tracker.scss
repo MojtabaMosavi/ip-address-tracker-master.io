@@ -37,37 +37,48 @@
   }
 
   &__search {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: inherit;
-    font-size: 3rem;
     transition: abs.$search-bar-transition;
-    overflow: hidden;
+    border: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: url(../assets/images/icon-arrow.svg) no-repeat center, black;
+    transform: translateX(-100%);
+    width: 3.7rem;
+    height: 100%;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+
+    .fa-search {
+      color: var(--white);
+      visibility: hidden;
+      transform: scale(0);
+    }
 
     &:hover {
-      transform: translate(-50%, -50%) rotate(130deg);
+      transform-origin: center;
+      transform: translateX(-100%) rotate(180deg);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-top-left-radius: 1rem;
+      border-bottom-left-radius: 1rem;
     }
 
     &--active {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: inherit;
+      font-size: 3rem;
       transition: abs.$search-bar-transition;
-      left: 100%;
-      top: 0;
-      background: url(../assets/images/icon-arrow.svg) no-repeat center, black;
-      transform: translateX(-100%);
-      width: 3.7rem;
-      height: 100%;
-      border-top-right-radius: 1rem;
-      border-bottom-right-radius: 1rem;
-
+      overflow: hidden;
+      .fa-search {
+        visibility: visible;
+        transform: scale(1);
+      }
       &:hover {
-        transform-origin: center;
-        transform: translateX(-100%) rotate(180deg);
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        border-top-left-radius: 1rem;
-        border-bottom-left-radius: 1rem;
+        transform: translate(-50%, -50%);
       }
     }
   }
@@ -76,17 +87,17 @@
     text-align: left;
     padding: 1.2rem 1.5rem;
     width: 100%;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     border-radius: 1rem;
     border: none;
-    visibility: hidden;
-    transform: scale(0);
+    transform: scale(1);
+    visibility: visible;
     transform-origin: center;
     transition: abs.$search-bar-transition;
 
     &--active {
-      transform: scale(1);
-      visibility: visible;
+      visibility: hidden;
+      transform: scale(0);
     }
   }
 
@@ -94,11 +105,20 @@
     background-color: var(--white);
     position: absolute;
     left: 50%;
-    transform: translate(-50%, -45%);
+    transform: translate(-50%, -45%) scale(1);
     width: 100%;
     min-height: 18.3rem;
     border-radius: 1rem;
     @include abs.flex-container($js-con: space-evenly, $flex-d: column);
+    transition: abs.$search-bar-transition;
+
+    &--active {
+      @extend .ip-tracker__info;
+      width: 0;
+      visibility: hidden;
+      transform: scale(0);
+      border-radius: 10rem;
+    }
   }
 
   &__item {
@@ -130,6 +150,10 @@
   @include abs.respond-to("tablet") {
     &__heading {
       font-size: 1.9rem;
+    }
+
+    &__input {
+      font-size: 1.1rem;
     }
   }
 

@@ -182,20 +182,9 @@ for people that prefer not to see them */
   max-width: 34.5rem;
 }
 .ip-tracker__search {
+  transition: all 500ms cubic-bezier(0, 1.32, 1, -0.3);
+  border: none;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: inherit;
-  font-size: 3rem;
-  transition: all 500ms cubic-bezier(0, 1.32, 1, -0.3);
-  overflow: hidden;
-}
-.ip-tracker__search:hover {
-  transform: translate(-50%, -50%) rotate(130deg);
-}
-.ip-tracker__search--active {
-  transition: all 500ms cubic-bezier(0, 1.32, 1, -0.3);
   left: 100%;
   top: 0;
   background: url(/icon-arrow.8bc9b196.svg) no-repeat center, black;
@@ -205,7 +194,12 @@ for people that prefer not to see them */
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
 }
-.ip-tracker__search--active:hover {
+.ip-tracker__search .fa-search {
+  color: var(--white);
+  visibility: hidden;
+  transform: scale(0);
+}
+.ip-tracker__search:hover {
   transform-origin: center;
   transform: translateX(-100%) rotate(180deg);
   border-top-right-radius: 0;
@@ -213,27 +207,44 @@ for people that prefer not to see them */
   border-top-left-radius: 1rem;
   border-bottom-left-radius: 1rem;
 }
+.ip-tracker__search--active {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: inherit;
+  font-size: 3rem;
+  transition: all 500ms cubic-bezier(0, 1.32, 1, -0.3);
+  overflow: hidden;
+}
+.ip-tracker__search--active .fa-search {
+  visibility: visible;
+  transform: scale(1);
+}
+.ip-tracker__search--active:hover {
+  transform: translate(-50%, -50%);
+}
 .ip-tracker__input {
   text-align: left;
   padding: 1.2rem 1.5rem;
   width: 100%;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   border-radius: 1rem;
   border: none;
-  visibility: hidden;
-  transform: scale(0);
+  transform: scale(1);
+  visibility: visible;
   transform-origin: center;
   transition: all 500ms cubic-bezier(0, 1.32, 1, -0.3);
 }
 .ip-tracker__input--active {
-  transform: scale(1);
-  visibility: visible;
+  visibility: hidden;
+  transform: scale(0);
 }
-.ip-tracker__info {
+.ip-tracker__info, .ip-tracker__info--active {
   background-color: var(--white);
   position: absolute;
   left: 50%;
-  transform: translate(-50%, -45%);
+  transform: translate(-50%, -45%) scale(1);
   width: 100%;
   min-height: 18.3rem;
   border-radius: 1rem;
@@ -241,6 +252,13 @@ for people that prefer not to see them */
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
+  transition: all 500ms cubic-bezier(0, 1.32, 1, -0.3);
+}
+.ip-tracker__info--active {
+  width: 0;
+  visibility: hidden;
+  transform: scale(0);
+  border-radius: 10rem;
 }
 .ip-tracker__item {
   /*----------------------------------------*\
@@ -265,17 +283,20 @@ for people that prefer not to see them */
   .ip-tracker__heading {
     font-size: 1.9rem;
   }
+  .ip-tracker__input {
+    font-size: 1.1rem;
+  }
 }
 @media screen and (min-width: 62em) {
   .ip-tracker__form, .ip-tracker__form--active {
     margin-bottom: 8rem;
   }
-  .ip-tracker__info {
+  .ip-tracker__info, .ip-tracker__info--active {
     transform: translate(-50%, -50%);
     min-height: 10rem;
     flex-direction: row;
   }
-  .ip-tracker__info {
+  .ip-tracker__info, .ip-tracker__info--active {
     text-align: left;
   }
   .ip-tracker__item {

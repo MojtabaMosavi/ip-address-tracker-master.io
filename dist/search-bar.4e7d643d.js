@@ -122,10 +122,13 @@ console.log("new js");
 var ipTracker = document.querySelector(".ip-tracker__search");
 var ipForm = document.querySelector(".ip-tracker__form");
 var ipInput = document.querySelector(".ip-tracker__input");
+var controlInfo = document.querySelector(".ip-tracker__control-info");
+var infoList = document.querySelector(".ip-tracker__info");
 ipTracker.addEventListener('click', function () {
   ipTracker.classList.toggle("ip-tracker__search--active");
   ipForm.classList.toggle("ip-tracker__form--active");
   ipInput.classList.toggle("ip-tracker__input--active");
+  infoList.classList.toggle("ip-tracker__info--active");
 });
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -155,7 +158,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63288" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51550" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
