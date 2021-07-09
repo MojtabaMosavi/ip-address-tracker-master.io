@@ -152,6 +152,9 @@ for people that prefer not to see them */
 \*----------------------------------------*/
 .ip-tracker {
   /*----------------------------------------*\
+      #ip-tracker map
+  \*----------------------------------------*/
+  /*----------------------------------------*\
     #ip-tracker tablet view
   \*----------------------------------------*/
   /*----------------------------------------*\
@@ -181,7 +184,7 @@ for people that prefer not to see them */
   transition: all 500ms cubic-bezier(0, 1.32, 1, -0.3);
   max-width: 34.5rem;
 }
-.ip-tracker__search {
+.ip-tracker__btn {
   transition: all 500ms cubic-bezier(0, 1.32, 1, -0.3);
   border: none;
   position: absolute;
@@ -194,12 +197,12 @@ for people that prefer not to see them */
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
 }
-.ip-tracker__search .fa-search {
+.ip-tracker__btn .fa-search {
   color: var(--white);
   visibility: hidden;
   transform: scale(0);
 }
-.ip-tracker__search:hover {
+.ip-tracker__btn:hover {
   transform-origin: center;
   transform: translateX(-100%) rotate(180deg);
   border-top-right-radius: 0;
@@ -207,7 +210,7 @@ for people that prefer not to see them */
   border-top-left-radius: 1rem;
   border-bottom-left-radius: 1rem;
 }
-.ip-tracker__search--active {
+.ip-tracker__btn--active {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -217,11 +220,11 @@ for people that prefer not to see them */
   transition: all 500ms cubic-bezier(0, 1.32, 1, -0.3);
   overflow: hidden;
 }
-.ip-tracker__search--active .fa-search {
+.ip-tracker__btn--active .fa-search {
   visibility: visible;
   transform: scale(1);
 }
-.ip-tracker__search--active:hover {
+.ip-tracker__btn--active:hover {
   transform: translate(-50%, -50%);
 }
 .ip-tracker__input {
@@ -243,6 +246,7 @@ for people that prefer not to see them */
 .ip-tracker__info, .ip-tracker__info--active {
   background-color: var(--white);
   position: absolute;
+  z-index: 2;
   left: 50%;
   transform: translate(-50%, -45%) scale(1);
   width: 100%;
@@ -260,11 +264,6 @@ for people that prefer not to see them */
   transform: scale(0);
   border-radius: 10rem;
 }
-.ip-tracker__item {
-  /*----------------------------------------*\
-    #ip-tracker map
-  \*----------------------------------------*/
-}
 .ip-tracker__item-heading {
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -274,10 +273,10 @@ for people that prefer not to see them */
   font-size: 1.25rem;
   font-weight: 500;
 }
-.ip-tracker__item__map {
-  background-color: red;
-  width: 100%;
-  height: 200px;
+.ip-tracker__map {
+  position: relative;
+  height: 32.5rem;
+  z-index: 1;
 }
 @media screen and (min-width: 43em) {
   .ip-tracker__heading {

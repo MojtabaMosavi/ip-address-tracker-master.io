@@ -117,20 +117,89 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"js/search-bar.js":[function(require,module,exports) {
-console.log("new js");
-var ipTracker = document.querySelector(".ip-tracker__search");
-var ipForm = document.querySelector(".ip-tracker__form");
-var ipInput = document.querySelector(".ip-tracker__input");
-var controlInfo = document.querySelector(".ip-tracker__control-info");
-var infoList = document.querySelector(".ip-tracker__info");
-ipTracker.addEventListener('click', function () {
-  ipTracker.classList.toggle("ip-tracker__search--active");
-  ipForm.classList.toggle("ip-tracker__form--active");
-  ipInput.classList.toggle("ip-tracker__input--active");
-  infoList.classList.toggle("ip-tracker__info--active");
+})({"js/pubsub.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
-},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+exports.PubSub = void 0;
+
+/*----------------------------------------*\
+  #PubSub 
+\*----------------------------------------*/
+var PubSub = {
+  events: {},
+  // subscribing to an event 
+  subscribe: function subscribe(eventName, eventHandler) {
+    this.events[eventName] = this.events[eventName] || [];
+    this.events[eventName].push(eventHandler);
+  },
+  // unsubscribing to an event 
+  unsubscribe: function unsubscribe(eventName, eventHanlder) {
+    if (this.events[eventName]) {
+      for (var i = 0; i < this.events[eventName].length; i++) {
+        if (this.events[eventName][i] === eventHanlder) {
+          this.events[eventName].splice(i, 1);
+          break;
+        }
+      }
+    }
+  },
+  // publishing evetns
+  publish: function publish(eventName, data) {
+    if (this.events[eventName]) {
+      this.events[eventName].forEach(function (eventHandler) {
+        eventHandler(data);
+      });
+    }
+  }
+};
+exports.PubSub = PubSub;
+},{}],"js/Infolist.js":[function(require,module,exports) {
+"use strict";
+
+var _pubsub = require("./pubsub.js");
+
+/*----------------------------------------*\
+  #infoList
+\*----------------------------------------*/
+var InfoList = function () {
+  document.addEventListener("DOMContentLoaded", function () {
+    // dom casching 
+    var ipTrackerInfoList = document.querySelector(".ip-tracker__info");
+    var ipTrackerIpAddress = ipTrackerInfoList.querySelector(".ip-tracker__ip-address");
+    var ipTrackerLocation = ipTrackerInfoList.querySelector(".ip-tracker__location");
+    var ipTrackerTimeZone = ipTrackerInfoList.querySelector(".ip-tracker__timezone");
+    var ipTrackerIspProvider = ipTrackerInfoList.querySelector(".ip-tracker__isp-provider");
+
+    function _init() {
+      _eventBinding();
+
+      _render();
+    } // eventbinding 
+
+
+    function _eventBinding() {} // rendering 
+
+
+    function _render() {
+      _pubsub.PubSub.publish("Change2", [1, 2]);
+
+      _pubsub.PubSub.subscribe("change", _updateData);
+    } // updata list info
+
+
+    function _updateData(data) {
+      console.log('called at');
+      console.log(data);
+    } // API 
+
+
+    {}
+  });
+}();
+},{"./pubsub.js":"js/pubsub.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -158,7 +227,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51550" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64625" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -334,5 +403,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/search-bar.js"], null)
-//# sourceMappingURL=/search-bar.4e7d643d.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/Infolist.js"], null)
+//# sourceMappingURL=/Infolist.24e23b05.js.map

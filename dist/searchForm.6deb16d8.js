@@ -117,9 +117,206 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"js/app.js":[function(require,module,exports) {
-console.log("hello world");
-},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+})({"js/utils.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.validateResponse = exports.logError = exports.jsonify = exports.logData = void 0;
+
+// log the date 
+var logData = function logData(data) {
+  return console.log(data);
+}; // convet the data to json format 
+
+
+exports.logData = logData;
+
+var jsonify = function jsonify(data) {
+  return data.json();
+}; // log error 
+
+
+exports.jsonify = jsonify;
+
+var logError = function logError(error) {
+  console.log("Looks like something went wrong " + error);
+}; // check the status of response 
+
+
+exports.logError = logError;
+
+var validateResponse = function validateResponse(response) {
+  if (!response.ok) {
+    new Error(response.statusText);
+  } else {
+    return response;
+  }
+};
+
+exports.validateResponse = validateResponse;
+},{}],"js/pubsub.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.PubSub = void 0;
+
+/*----------------------------------------*\
+  #PubSub 
+\*----------------------------------------*/
+var PubSub = {
+  events: {},
+  // subscribing to an event 
+  subscribe: function subscribe(eventName, eventHandler) {
+    this.events[eventName] = this.events[eventName] || [];
+    this.events[eventName].push(eventHandler);
+  },
+  // unsubscribing to an event 
+  unsubscribe: function unsubscribe(eventName, eventHanlder) {
+    if (this.events[eventName]) {
+      for (var i = 0; i < this.events[eventName].length; i++) {
+        if (this.events[eventName][i] === eventHanlder) {
+          this.events[eventName].splice(i, 1);
+          break;
+        }
+      }
+    }
+  },
+  // publishing evetns
+  publish: function publish(eventName, data) {
+    if (this.events[eventName]) {
+      this.events[eventName].forEach(function (eventHandler) {
+        eventHandler(data);
+      });
+    }
+  }
+};
+exports.PubSub = PubSub;
+},{}],"js/searchForm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _utils = require("./utils.js");
+
+var _pubsub = require("./pubsub.js");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/*----------------------------------------*\
+  #search-bar logic
+\*----------------------------------------*/
+var SearchForm = /*#__PURE__*/function () {
+  function SearchForm() {
+    _classCallCheck(this, SearchForm);
+
+    // dom caching 
+    this.ipTracker = document.querySelector(".ip-tracker-wrapper");
+    this.ipTrackerForm = this.ipTracker.querySelector(".ip-tracker__form");
+    this.ipTrackerBtn = this.ipTracker.querySelector(".ip-tracker__btn");
+    this.ipTrackerInput = this.ipTracker.querySelector(".ip-tracker__input");
+    this.ipTrackerInfoList = this.ipTracker.querySelector(".ip-tracker__info");
+
+    if (this._validateDomNodes()) {
+      this._bindEnvents();
+    } else {
+      return;
+    }
+  }
+
+  _createClass(SearchForm, [{
+    key: "_validateDomNodes",
+    value: function _validateDomNodes() {
+      if (this.ipTracker && this.ipTrackerForm && this.ipTrackerBtn && this.ipTrackerInfoList && this.ipTrackerInput) {
+        return true;
+      } else {
+        throw Error("required dom nodes are not available.");
+      }
+    } // bind events 
+
+  }, {
+    key: "_bindEnvents",
+    value: function _bindEnvents() {
+      var _this = this;
+
+      this.ipTrackerBtn.addEventListener('click', function () {
+        _this.ipTrackerBtn.classList.toggle("ip-tracker__btn--active");
+
+        _this.ipTrackerForm.classList.toggle("ip-tracker__form--active");
+
+        _this.ipTrackerInput.classList.toggle("ip-tracker__input--active");
+
+        _this.ipTrackerInfoList.classList.toggle("ip-tracker__info--active");
+      });
+    } // render method 
+
+  }, {
+    key: "_render",
+    value: function _render() {} // updating the ip information in dom
+
+  }, {
+    key: "_getData",
+    value: function _getData() {
+      fetch(_url).then(_utils.validateResponse).then(_utils.jsonify).then(function (data) {
+        var ip = data.ip,
+            isp = data.isp,
+            _data$location = data.location,
+            country = _data$location.country,
+            city = _data$location.city,
+            region = _data$location.region,
+            timezone = _data$location.timezone,
+            longitude = _data$location.lat,
+            latitude = _data$location.lng;
+
+        _createMap(longitude, latitude);
+
+        _pubsub.PubSub.publish('relocation', {
+          ip: ip,
+          isp: isp,
+          country: country,
+          city: city,
+          region: region,
+          longitude: longitude,
+          latitude: latitude,
+          timezone: timezone
+        });
+      }).catch(_utils.logError);
+    } // creating the map 
+
+  }, {
+    key: "_createMap",
+    value: function _createMap() {
+      var longitude = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var latitude = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var map = L.map('ip-tracker__map', {
+        zoom: 12,
+        center: [longitude, latitude],
+        zoomControl: false,
+        worldCopyJump: true
+      });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{map}', {
+        map: 'bar',
+        zoom: 12,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+    }
+  }]);
+
+  return SearchForm;
+}();
+
+exports.default = SearchForm;
+},{"./utils.js":"js/utils.js","./pubsub.js":"js/pubsub.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -147,7 +344,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54986" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64625" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -323,5 +520,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/app.js"], null)
-//# sourceMappingURL=/app.c3f9f951.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/searchForm.js"], null)
+//# sourceMappingURL=/searchForm.6deb16d8.js.map

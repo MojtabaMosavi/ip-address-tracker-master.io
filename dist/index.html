@@ -3,11 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
+  <meta name="description" content="a tool to extract information out of a ip address">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.7d369b0f.png">
   <link rel="stylesheet" href="/main.77bb5cfd.css">
-  <script src="/search-bar.4e7d643d.js" defer=""></script>
+
+  <script src="/main.fb6bbcaf.js" type="module" defer=""></script>
+
+
   <script src="https://kit.fontawesome.com/e8685ceadd.js" crossorigin="anonymous"></script>
+  <!-- Leaflet CSS-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="">
+
+
+
+    <!--leaflet's js -->
+ <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
   <title>Frontend Mentor | IP Address Tracker</title>
 <script src="/main.77bb5cfd.js"></script></head>
@@ -24,55 +34,48 @@
                 <label for="ip-search" class="sr-only"></label>
                 <input type="search" class="ip-tracker__input" placeholder="Search for any IP address or domin" id="ip-search" aria-label="search bar">
 
-                <button class="ip-tracker__search" aria-label="serach" aria-controls="search" type="button">
+                <button class="ip-tracker__btn" aria-label="serach" aria-controls="search" type="button">
                   <i class="ip-trakcer__search-icon fas fa-search " aria-hidden="true" title="close" id="search"></i>
                 </button>
               </form>
               
-              <ul class="ip-tracker__info">
+              <ul class="ip-tracker__info loading">
     
                 <li class="ip-tracker__item">
                   <h4 class="ip-tracker__item-heading">  IP Address</h4>
-                  <span class="ip-tracker__item-info">192.212.174.101</span>
+                  <span class="ip-tracker__item-info ip-tracker__ip-address">192.212.174.101</span>
                 </li>
     
                 <li class="ip-tracker__item">
                   <h4 class="ip-tracker__item-heading">Location</h4>
-                  <span class="ip-tracker__item-info">Brooklyn, NY <br>10001</span>
+                  <span class="ip-tracker__item-info ip-tracker__location">Brooklyn, NY <br>10001</span>
                 </li>
     
                 <li class="ip-tracker__item">
                   <h4 class="ip-tracker__item-heading">  Timezone</h4>
-                  <span class="ip-tracker__item-info">UTC- 05:00</span>
+                  <span class="ip-tracker__item-info ip-tracker__timezone">UTC- 05:00</span>
                 </li>
     
                 <li class="ip-tracker__item">
                   <h4 class="ip-tracker__item-heading"> ISP </h4>
-                  <span class="ip-tracker__item-info">SpaceX <br> Starlink</span>
+                  <span class="ip-tracker__item-info ip-tracker__isp-provider">SpaceX <br> Starlink</span>
                 </li>
       
               </ul>
+
+              <div class="loader ip-tracker__loader">
+                <span class="loader">searching</span>
+              </div>
             </div>
 
         </header><!-- End of ip-teackre__header-->
     
 
-        <div class="ip-tracker__map"></div><!-- End of ip-tracker__map-->
+        <div class="ip-tracker__map " id="ip-tracker__map"></div><!-- End of ip-tracker__map-->
   
       </div>
 
   </main>
-
-
-  
-   <!-- add offset value dynamically using the API 
-
-  ISP
- 
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
-  </div>
--->
 </body>
+
 </html>
